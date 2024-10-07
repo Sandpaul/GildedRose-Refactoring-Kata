@@ -36,6 +36,29 @@ def test_normal_items_quality_reduces_by_two_when_sell_in_is_zero():
 # -- While sell_in <= 0, quality + 2
 # -- Quality caps at 50
 
+def test_brie_quality_appreciates():
+    items = [Item("Aged Brie", 5, 10)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 11
+
+
+def test_brie_quality_appreciates_by_two_when_sell_in_below_zero():
+    items = [Item("Aged Brie", 1, 10)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 11
+    gilded_rose.update_quality()
+    assert items[0].quality == 13
+
+
+def test_brie_quality_capped_at_fifty():
+    items = [Item("Aged Brie", 1, 50)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 50
+
+
 # - Sulfuras:
 # -- Quality always at 80
 
