@@ -114,3 +114,9 @@ def test_decrement_quality_decrements_by_passed_amount(item_updater):
     assert test_item.quality == 4
     item_updater.decrement_quality(test_item, 2)
     assert test_item.quality == 2
+
+
+def test_decrement_quality_does_not_decrement_past_0(item_updater):
+    test_item = Item("test_item", 1, 0)
+    item_updater.decrement_quality(test_item, 1)
+    assert test_item.quality == 0

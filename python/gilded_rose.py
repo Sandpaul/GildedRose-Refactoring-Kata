@@ -6,6 +6,8 @@ class ItemUpdater():
 
     def decrement_quality(self, item, amount):
         item.quality -= amount
+        if item.quality < self.MIN_QUALITY:
+            item.quality = self.MIN_QUALITY
 
     def normal_item(self, item):
         pass
