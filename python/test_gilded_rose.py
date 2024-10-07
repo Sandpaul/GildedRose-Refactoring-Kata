@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import unittest
 
 from gilded_rose import Item, GildedRose
 
