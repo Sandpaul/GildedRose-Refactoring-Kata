@@ -59,8 +59,11 @@ def test_brie_quality_capped_at_fifty():
     assert items[0].quality == 50
 
 
-# - Sulfuras:
-# -- Quality always at 80
+def test_sulfuras_quality_always_eighty():
+    items = [Item("Sulfuras, Hand of Ragnaros", 0, 80)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 80
 
 # - Concert:
 # -- Goes up by one each day
