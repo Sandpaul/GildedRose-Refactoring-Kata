@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
+import pytest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import Item, GildedRose, ItemUpdater
+
+
+@pytest.fixture
+def item_updater():
+    return ItemUpdater()
 
 
 def test_foo():
@@ -100,3 +106,11 @@ def test_concert_quality_resets_to_zero_when_sell_in_reaches_less_than_0():
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
     assert items[0].quality == 0
+
+
+def test_decrement_quality_decrements_by_passed_amount(item_updater):
+    test_item = Item("test_item", 5, 5)
+    item_updater.decrement_quality(test_item, 1)
+    assert test_item.quality == 4
+    item_updater.decrement_quality(test_item, 2)
+    assert test_item.quality == 2

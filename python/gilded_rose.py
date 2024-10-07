@@ -1,5 +1,18 @@
 # -*- coding: utf-8 -*-
 
+class ItemUpdater():
+    MIN_QUALITY = 0
+    MAX_QUALITY = 50
+
+    def decrement_quality(self, item, amount):
+        item.quality -= amount
+
+    def normal_item(self, item):
+        pass
+
+
+
+
 class GildedRose(object):
 
     def __init__(self, items):
