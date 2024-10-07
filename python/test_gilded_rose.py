@@ -9,11 +9,27 @@ def test_foo():
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
     assert items[0].name == "foo"
-# Tests:
-# - Normal items:
-# -- Sell_in and quantity decrease by 1
-# -- Quality doesnt go below 0
-# -- Quality goes down by two when sell_in < 0
+
+
+def test_normal_items_reduce_quality_by_one():
+    items = [Item("normal_item", 2, 2)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 1
+
+
+def test_normal_items_quality_never_negative():
+    items = [Item("normal_item", 0, 0)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 0
+
+
+def test_normal_items_quality_reduces_by_two_when_sell_in_is_zero():
+    items = [Item("normal_item", 0, 10)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 8
 
 # - Brie:
 # -- While sell_in > 0, quality + 1
