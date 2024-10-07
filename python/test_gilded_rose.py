@@ -31,10 +31,6 @@ def test_normal_items_quality_reduces_by_two_when_sell_in_is_zero():
     gilded_rose.update_quality()
     assert items[0].quality == 8
 
-# - Brie:
-# -- While sell_in > 0, quality + 1
-# -- While sell_in <= 0, quality + 2
-# -- Quality caps at 50
 
 def test_brie_quality_appreciates():
     items = [Item("Aged Brie", 5, 10)]
