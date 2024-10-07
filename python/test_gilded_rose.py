@@ -65,15 +65,43 @@ def test_sulfuras_quality_always_eighty():
     gilded_rose.update_quality()
     assert items[0].quality == 80
 
-# - Concert:
-# -- Goes up by one each day
-# -- Unless sell_in < 10, goes up by 2
-# -- Unless sell in < 5, goes up by 3
-# -- Capped at 50
-# -- Goes to zero when sell_in <= 0
+def test_concert_quality_increments_by_one():
+    items = [Item("Backstage passes to a TAFKAL80ETC concert", 30, 25)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 26
 
 
+def test_concert_quality_increments_by_two_when_sell_in_between_ten_and_six():
+    items = [
+        Item("Backstage passes to a TAFKAL80ETC concert", 10, 25),
+        Item("Backstage passes to a TAFKAL80ETC concert", 6, 25),
+    ]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 27
+    assert items[1].quality == 27
 
-        
-if __name__ == '__main__':
-    unittest.main()
+def test_concert_quality_increments_by_three_when_sell_in_between_five_and_one():
+    items = [
+        Item("Backstage passes to a TAFKAL80ETC concert", 5, 25),
+        Item("Backstage passes to a TAFKAL80ETC concert", 1, 25),
+    ]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 28
+    assert items[1].quality == 28
+
+
+def test_concert_quality_capped_at_50():
+    items = [Item("Backstage passes to a TAFKAL80ETC concert", 2, 49)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 50
+
+
+def test_concert_quality_resets_to_zero_when_sell_in_reaches_less_than_0():
+    items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)]
+    gilded_rose = GildedRose(items)
+    gilded_rose.update_quality()
+    assert items[0].quality == 0
