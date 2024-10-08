@@ -96,7 +96,7 @@ def test_concert_quality_capped_at_50():
 
 
 def test_concert_quality_resets_to_zero_when_sell_in_reaches_less_than_0():
-    items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)]
+    items = [Item("Backstage passes to a TAFKAL80ETC concert", -1, 25)]
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
     assert items[0].quality == 0

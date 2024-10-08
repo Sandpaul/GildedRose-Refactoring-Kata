@@ -18,16 +18,16 @@ class GildedRose(object):
 
             else:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
+                    item.quality = item.quality + 1 # this increments quality of non depreciating
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
                         if item.sell_in < 11:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                item.quality = item.quality + 1 # this increments one more for backstage 
                         if item.sell_in < 6:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                item.quality = item.quality + 1 # and this increments one more for backstage
             if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
+                item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
             if item.sell_in < 0:
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
@@ -36,7 +36,7 @@ class GildedRose(object):
                                 item.quality = item.quality - 1
                     else:
                         item.quality = item.quality - item.quality
-                else:
+                else: # if item.name is "Aged Brie"
                     if item.quality < 50:
                         item.quality = item.quality + 1
 
@@ -91,3 +91,9 @@ class NormalItem:
     
     def get_quality(self):
         return self.quality
+
+
+class BrieItem(NormalItem):
+    def update(self):
+        increment_amount = 2 if self.get_sell_in() < 0 else 1
+        self.increment_quality(increment_amount)
