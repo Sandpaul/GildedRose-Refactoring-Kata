@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
 
-class ItemUpdater():
-    MIN_QUALITY = 0
-    MAX_QUALITY = 50
+# class ItemUpdater():
+#     MIN_QUALITY = 0
+#     MAX_QUALITY = 50
 
-    def decrement_quality(self, item, amount):
-        item.quality -= amount
-        if item.quality < self.MIN_QUALITY:
-            item.quality = self.MIN_QUALITY
+#     def decrement_quality(self, item, amount):
+#         item.quality -= amount
+#         if item.quality < self.MIN_QUALITY:
+#             item.quality = self.MIN_QUALITY
 
-    def increment_quality(self, item, amount):
-        item.quality += amount
-        if item.quality > self.MAX_QUALITY:
-            item.quality = self.MAX_QUALITY
+#     def increment_quality(self, item, amount):
+#         item.quality += amount
+#         if item.quality > self.MAX_QUALITY:
+#             item.quality = self.MAX_QUALITY
 
-    def normal_item(self, item):
-        pass
+#     def normal_item(self, item):
+#         pass
 
-    def brie(self, item):
-        pass
+#     def brie(self, item):
+#         pass
 
-    def ragnaros(self, item):
-        pass
+#     def ragnaros(self, item):
+#         pass
 
-    def backstage_pass(self, item):
-        pass
+#     def backstage_pass(self, item):
+#         pass
 
 
 
@@ -74,3 +74,21 @@ class Item:
 
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
+
+
+class NormalItem:
+    def __init__(self, item):
+        self.item = item
+
+    MIN_QUALITY = 0
+    MAX_QUALITY = 50
+
+    def decrement_quality(self, amount):
+        self.item.quality -= amount
+        if self.item.quality < self.MIN_QUALITY:
+            self.item.quality = self.MIN_QUALITY
+
+    def increment_quality(self, amount):
+        self.item.quality += amount
+        if self.item.quality > self.MAX_QUALITY:
+            self.item.quality = self.MAX_QUALITY
