@@ -22,16 +22,17 @@ class GildedRose(object):
         for item in converted_items:
             item.update()
 
-            # if item.name != "Sulfuras, Hand of Ragnaros":
-            #     item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
-            if item.sell_in < 0:
+            if item.name != "Sulfuras, Hand of Ragnaros":
+                item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
+
+            if item.sell_in < 0: # this block decrements quality by one more if depreciating item sell_in below 0
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
                                 item.quality = item.quality - 1
                     else:
-                        item.quality = item.quality - item.quality
+                        item.quality = item.quality - item.quality # this sets backstage quality to zero when sellin less than 0
                 else: # if item.name is "Aged Brie"
                     if item.quality < 50:
                         item.quality = item.quality + 1
@@ -80,7 +81,6 @@ class NormalItem:
 
     def update(self):
         self.decrement_quality(1)
-        self.decrement_sell_in()
     
     def get_sell_in(self):
         return self.sell_in
