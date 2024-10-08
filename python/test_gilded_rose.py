@@ -14,7 +14,7 @@ def test_normal_items_reduce_quality_by_one():
     items = [Item("normal_item", 2, 2)]
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
-    assert items[0].quality == 1
+    assert items[0].quality == 1 
 
 
 def test_normal_items_quality_never_negative():
