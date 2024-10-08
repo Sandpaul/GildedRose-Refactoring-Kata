@@ -14,8 +14,7 @@ class GildedRose(object):
 
         for item in wrapped_items:
             if item.name not in non_depreciating_items:
-                if item.quality > 0:
-                    item.quality = item.quality - 1
+                item.update()
 
             else:
                 if item.quality < 50:
