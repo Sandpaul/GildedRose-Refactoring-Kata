@@ -10,11 +10,13 @@ class GildedRose(object):
 
         wrapped_items = [NormalItem(item=item) for item in self.items]
 
+        non_depreciating_items = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
+
         for item in wrapped_items:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
+            if item.name not in non_depreciating_items:
                 if item.quality > 0:
-                    if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                    item.quality = item.quality - 1
+
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
