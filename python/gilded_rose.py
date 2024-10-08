@@ -9,8 +9,23 @@ class ItemUpdater():
         if item.quality < self.MIN_QUALITY:
             item.quality = self.MIN_QUALITY
 
+    def increment_quality(self, item, amount):
+        item.quality += amount
+        if item.quality > self.MAX_QUALITY:
+            item.quality = self.MAX_QUALITY
+
     def normal_item(self, item):
         pass
+
+    def brie(self, item):
+        pass
+
+    def ragnaros(self, item):
+        pass
+
+    def backstage_pass(self, item):
+        pass
+
 
 
 

@@ -120,3 +120,17 @@ def test_decrement_quality_does_not_decrement_past_0(item_updater):
     test_item = Item("test_item", 1, 0)
     item_updater.decrement_quality(test_item, 1)
     assert test_item.quality == 0
+
+
+def test_increment_quality_increments_by_passed_amount(item_updater):
+    test_item = Item("test_item", 1, 0)
+    item_updater.increment_quality(test_item, 1)
+    assert test_item.quality == 1
+    item_updater.increment_quality(test_item, 2)
+    assert test_item.quality == 3
+
+
+def test_increment_quality_caps_at_50(item_updater):
+    test_item = Item("test_item", 1, 49)
+    item_updater.increment_quality(test_item, 3)
+    assert test_item.quality == 50
