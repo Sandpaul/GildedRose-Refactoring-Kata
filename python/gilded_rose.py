@@ -14,6 +14,8 @@ class GildedRose(object):
                 converted_items.append(BrieItem(item=item))
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
                 converted_items.append(BackstagePassItem(item=item))
+            elif item.name == "Sulfuras, Hand of Ragnaros":
+                converted_items.append(Sulfuras(item=item))
             else:
                 converted_items.append(NormalItem(item=item))
 
@@ -24,16 +26,7 @@ class GildedRose(object):
                 item.update()
 
             else:
-                # item.update()
-                if item.quality < 50:
-                    item.quality = item.quality + 1 # this increments quality of non depreciating
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if item.sell_in < 11:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1 # this increments one more for backstage
-                        if item.sell_in < 6:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1 # and this increments one more for backstage
+                item.update()
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
             if item.sell_in < 0:
