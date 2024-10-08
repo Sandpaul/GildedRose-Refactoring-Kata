@@ -8,11 +8,11 @@ class GildedRose(object):
 
     def update_quality(self):
 
-        wrapped_items = [NormalItem(item=item) for item in self.items]
+        converted_items = [NormalItem(item=item) for item in self.items]
 
         non_depreciating_items = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
 
-        for item in wrapped_items:
+        for item in converted_items:
             if item.name not in non_depreciating_items:
                 item.update()
 
@@ -39,10 +39,10 @@ class GildedRose(object):
                 else:
                     if item.quality < 50:
                         item.quality = item.quality + 1
-        
-        for original_item, wrapped_item in zip(self.items, wrapped_items):
-            original_item.sell_in = wrapped_item.sell_in
-            original_item.quality = wrapped_item.quality
+
+        for original_item, converted_item in zip(self.items, converted_items):
+            original_item.sell_in = converted_item.sell_in
+            original_item.quality = converted_item.quality
 
 
 class Item:
