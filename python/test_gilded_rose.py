@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-import pytest
 
-from gilded_rose import Item, GildedRose, NormalItem
-
-
-# @pytest.fixture
-# def item_updater():
-#     return ItemUpdater()
+from gilded_rose import Item, GildedRose
 
 
 def test_foo():
@@ -106,35 +100,3 @@ def test_concert_quality_resets_to_zero_when_sell_in_reaches_less_than_0():
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
     assert items[0].quality == 0
-
-
-def test_decrement_quality_decrements_by_passed_amount():
-    test_item = Item("test_item", 5, 5)
-    test_normal_item = NormalItem(test_item)
-    test_normal_item.decrement_quality(1)
-    assert test_normal_item.item.quality == 4
-    test_normal_item.decrement_quality(2)
-    assert test_normal_item.item.quality == 2
-
-
-def test_decrement_quality_does_not_decrement_past_0():
-    test_item = Item("test_item", 1, 0)
-    test_normal_item = NormalItem(test_item)
-    test_normal_item.decrement_quality(1)
-    assert test_normal_item.item.quality == 0
-
-
-def test_increment_quality_increments_by_passed_amount():
-    test_item = Item("test_item", 1, 0)
-    test_normal_item = NormalItem(test_item)
-    test_normal_item.increment_quality(1)
-    assert test_normal_item.item.quality == 1
-    test_normal_item.increment_quality(2)
-    assert test_normal_item.item.quality == 3
-
-
-def test_increment_quality_caps_at_50():
-    test_item = Item("test_item", 1, 49)
-    test_normal_item = NormalItem(test_item)
-    test_normal_item.increment_quality(3)
-    assert test_normal_item.item.quality == 50
