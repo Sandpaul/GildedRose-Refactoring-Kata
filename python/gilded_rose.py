@@ -24,6 +24,8 @@ class GildedRose(object):
                 converted_items.append(BackstagePassItem(item=item))
             elif item.name == "Sulfuras, Hand of Ragnaros":
                 converted_items.append(Sulfuras(item=item))
+            elif isinstance(item, Conjured):
+                converted_items.append(item)
             else:
                 converted_items.append(NormalItem(item=item))
         return converted_items
