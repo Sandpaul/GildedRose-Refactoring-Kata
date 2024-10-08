@@ -1,4 +1,4 @@
-from gilded_rose import NormalItem, BrieItem, BackstagePassItem
+from gilded_rose import NormalItem, BrieItem, BackstagePassItem, Sulfuras
 
 def test_normal_item_update():
     test_normal_item = NormalItem("test_normal_item", 5, 5)
@@ -75,3 +75,9 @@ def test_backstageg_pass_quality_resets_to_0_when_sell_in_is_less_than_0():
     test_backstage_pass_item = BackstagePassItem("test_item", -1, 50)
     test_backstage_pass_item.update()
     assert test_backstage_pass_item.get_quality() == 0
+
+
+def test_sulfuras_item_quality_always_80():
+    test_sulfuras = Sulfuras("test_item", 0, 80)
+    test_sulfuras.update()
+    assert test_sulfuras.get_quality() == 80

@@ -8,12 +8,12 @@ class GildedRose(object):
 
     def update_quality(self):
 
-        # converted_items = [NormalItem(item=item) for item in self.items]
-
         converted_items = []
         for item in self.items:
             if item.name == "Aged Brie":
                 converted_items.append(BrieItem(item=item))
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                converted_items.append(BackstagePassItem(item=item))
             else:
                 converted_items.append(NormalItem(item=item))
 
@@ -24,6 +24,7 @@ class GildedRose(object):
                 item.update()
 
             else:
+                # item.update()
                 if item.quality < 50:
                     item.quality = item.quality + 1 # this increments quality of non depreciating
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
@@ -118,3 +119,11 @@ class BackstagePassItem(NormalItem):
         else:
             increment_amount = 1
         self.increment_quality(increment_amount)
+
+
+class Sulfuras(NormalItem):
+    MIN_QUALITY = 80
+    MAX_QUALITY = 80
+
+    def update(self):
+        pass
