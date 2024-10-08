@@ -22,8 +22,8 @@ class GildedRose(object):
         for item in converted_items:
             item.update()
 
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
+            # if item.name != "Sulfuras, Hand of Ragnaros":
+            #     item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
             if item.sell_in < 0:
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
