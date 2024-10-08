@@ -8,8 +8,16 @@ class GildedRose(object):
 
     def update_quality(self):
 
+        converted_items = self.convert_items(self.items)
+
+        for item in converted_items:
+            item.update()
+
+        self.items = self.update_original_items(self.items, converted_items)
+
+    def convert_items(self, items):
         converted_items = []
-        for item in self.items:
+        for item in items:
             if item.name == "Aged Brie":
                 converted_items.append(BrieItem(item=item))
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
@@ -18,25 +26,13 @@ class GildedRose(object):
                 converted_items.append(Sulfuras(item=item))
             else:
                 converted_items.append(NormalItem(item=item))
+        return converted_items
 
-        for item in converted_items:
-            item.update()
-
-            if item.sell_in < 0: # this block decrements quality by one more if depreciating item sell_in below 0
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
-                    else:
-                        item.quality = item.quality - item.quality # this sets backstage quality to zero when sellin less than 0
-                else: # if item.name is "Aged Brie"
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-
-        for original_item, converted_item in zip(self.items, converted_items):
+    def update_original_items(self, original_items, converted_items):
+        for original_item, converted_item in zip(original_items, converted_items):
             original_item.sell_in = converted_item.sell_in
             original_item.quality = converted_item.quality
+        return original_items
 
 
 class Item:
@@ -63,50 +59,51 @@ class NormalItem:
     MIN_QUALITY = 0
     MAX_QUALITY = 50
 
-    def decrement_quality(self, amount):
+    def decrement_quality_by(self, amount):
         self.quality -= amount
         if self.quality < self.MIN_QUALITY:
             self.quality = self.MIN_QUALITY
 
-    def increment_quality(self, amount):
+    def increment_quality_by(self, amount):
         self.quality += amount
         if self.quality > self.MAX_QUALITY:
             self.quality = self.MAX_QUALITY
 
-    def decrement_sell_in(self):
+    def decrement_sell_in_by_one(self):
         self.sell_in -= 1
 
     def update(self):
-        self.decrement_quality(1)
-        self.decrement_sell_in()
-    
+        decrement_amount = 2 if self.get_sell_in() <= 0 else 1
+        self.decrement_quality_by(decrement_amount)
+        self.decrement_sell_in_by_one()
+
     def get_sell_in(self):
         return self.sell_in
-    
+
     def get_quality(self):
         return self.quality
 
 
 class BrieItem(NormalItem):
     def update(self):
-        increment_amount = 2 if self.get_sell_in() < 0 else 1
-        self.increment_quality(increment_amount)
-        self.decrement_sell_in()
+        increment_amount = 2 if self.get_sell_in() <= 0 else 1
+        self.increment_quality_by(increment_amount)
+        self.decrement_sell_in_by_one()
 
 
 class BackstagePassItem(NormalItem):
     def update(self):
         increment_amount = 0
         if self.get_sell_in() < 0:
-            self.decrement_quality(self.get_quality())
+            self.decrement_quality_by(self.get_quality())
         elif self.get_sell_in() < 6:
             increment_amount = 3
         elif self.get_sell_in() < 11:
             increment_amount = 2
         else:
             increment_amount = 1
-        self.increment_quality(increment_amount)
-        self.decrement_sell_in()
+        self.increment_quality_by(increment_amount)
+        self.decrement_sell_in_by_one()
 
 
 class Sulfuras(NormalItem):

@@ -1,9 +1,15 @@
 from gilded_rose import NormalItem, BrieItem, BackstagePassItem, Sulfuras
 
-def test_normal_item_update():
+def test_normal_item_update_decrements_by_one_when_sell_in_above_0():
     test_normal_item = NormalItem("test_normal_item", 5, 5)
     test_normal_item.update()
     assert test_normal_item.get_quality() == 4
+
+
+def test_normal_item_update_decrements_twice_as_fast_when_sell_in_is_less_than_1():
+    test_normal_item = NormalItem("test_item", 0, 10)
+    test_normal_item.update()
+    assert test_normal_item.get_quality() == 8
 
 
 def test_normal_item_update_does_not_decrement_quality_past_0():
