@@ -19,14 +19,9 @@ class GildedRose(object):
             else:
                 converted_items.append(NormalItem(item=item))
 
-        non_depreciating_items = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
-
         for item in converted_items:
-            if item.name not in non_depreciating_items:
-                item.update()
+            item.update()
 
-            else:
-                item.update()
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1 # this reduces sell_in for all apart from sulfuras
             if item.sell_in < 0:
