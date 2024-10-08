@@ -1,34 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# class ItemUpdater():
-#     MIN_QUALITY = 0
-#     MAX_QUALITY = 50
-
-#     def decrement_quality(self, item, amount):
-#         item.quality -= amount
-#         if item.quality < self.MIN_QUALITY:
-#             item.quality = self.MIN_QUALITY
-
-#     def increment_quality(self, item, amount):
-#         item.quality += amount
-#         if item.quality > self.MAX_QUALITY:
-#             item.quality = self.MAX_QUALITY
-
-#     def normal_item(self, item):
-#         pass
-
-#     def brie(self, item):
-#         pass
-
-#     def ragnaros(self, item):
-#         pass
-
-#     def backstage_pass(self, item):
-#         pass
-
-
-
-
 
 class GildedRose(object):
 
@@ -36,11 +7,13 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
-        for item in self.items:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
+        non_depreciating_items = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
+        
+        for item in self.items:    
+            if item.name not in non_depreciating_items:
                 if item.quality > 0:
-                    if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                    item.quality = item.quality - 1
+
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
