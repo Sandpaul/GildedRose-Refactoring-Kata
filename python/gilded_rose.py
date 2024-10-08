@@ -8,35 +8,41 @@ class GildedRose(object):
 
     def update_quality(self):
         non_depreciating_items = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
-        
-        for item in self.items:    
-            if item.name not in non_depreciating_items:
-                if item.quality > 0:
-                    item.quality = item.quality - 1
+
+        transformed_items = []
+
+        for item in self.items:
+            item = NormalItem(item)
+            transformed_items.append(item)
+
+        for item in transformed_items:
+            if item.item.name not in non_depreciating_items:
+                if item.item.quality > 0:
+                    item.item.quality = item.item.quality - 1
 
             else:
-                if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if item.sell_in < 11:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-                        if item.sell_in < 6:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                if item.item.quality < 50:
+                    item.item.quality = item.item.quality + 1
+                    if item.item.name == "Backstage passes to a TAFKAL80ETC concert":
+                        if item.item.sell_in < 11:
+                            if item.item.quality < 50:
+                                item.item.quality = item.item.quality + 1
+                        if item.item.sell_in < 6:
+                            if item.item.quality < 50:
+                                item.item.quality = item.item.quality + 1
+            if item.item.name != "Sulfuras, Hand of Ragnaros":
+                item.item.sell_in = item.item.sell_in - 1
+            if item.item.sell_in < 0:
+                if item.item.name != "Aged Brie":
+                    if item.item.name != "Backstage passes to a TAFKAL80ETC concert":
+                        if item.item.quality > 0:
+                            if item.item.name != "Sulfuras, Hand of Ragnaros":
+                                item.item.quality = item.item.quality - 1
                     else:
-                        item.quality = item.quality - item.quality
+                        item.item.quality = item.item.quality - item.item.quality
                 else:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
+                    if item.item.quality < 50:
+                        item.item.quality = item.item.quality + 1
 
 
 class Item:
@@ -68,3 +74,7 @@ class NormalItem:
 
     def decrement_sell_in(self):
         self.item.sell_in -= 1
+
+    def update(self):
+        self.decrement_quality(1)
+        self.decrement_sell_in()
