@@ -92,3 +92,6 @@ class NormalItem:
         self.item.quality += amount
         if self.item.quality > self.MAX_QUALITY:
             self.item.quality = self.MAX_QUALITY
+
+    def decrement_sell_in(self):
+        self.item.sell_in -= 1
