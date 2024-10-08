@@ -1,4 +1,4 @@
-from gilded_rose import NormalItem, BrieItem, BackstagePassItem, Sulfuras
+from gilded_rose import NormalItem, BrieItem, BackstagePassItem, Sulfuras, Conjured
 
 def test_normal_item_update_decrements_by_one_when_sell_in_above_0():
     test_normal_item = NormalItem("test_normal_item", 5, 5)
@@ -104,3 +104,27 @@ def test_sulfuras_sell_in_does_not_deprecate():
     test_sulfuras = Sulfuras("test_item", 0, 80)
     test_sulfuras.update()
     assert test_sulfuras.get_sell_in() == 0
+
+
+def test_conjured_item_update_should_reduce_quality_by_2_when_sell_in_is_0_or_greater():
+    test_conjured_item = Conjured("test_item", 5, 5)
+    test_conjured_item.update()
+    assert test_conjured_item.get_quality() == 3
+
+
+def test_conjured_item_update_should_reduce_quality_by_2_when_sell_in_below_0():
+    test_conjured_item = Conjured("test_item", -1, 5)
+    test_conjured_item.update()
+    assert test_conjured_item.get_quality() == 1
+
+
+def test_conjured_item_update_should_not_reduce_qulity_past_0():
+    test_conjured_item = Conjured("test_item", -1, 3)
+    test_conjured_item.update()
+    assert test_conjured_item.get_quality() == 0
+
+
+def test_conjured_item_update_reduces_sell_in_by_1():
+    test_conjured_item = Conjured("test_item", -1, 3)
+    test_conjured_item.update()
+    assert test_conjured_item.get_sell_in() == -2

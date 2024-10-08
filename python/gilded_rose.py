@@ -112,3 +112,11 @@ class Sulfuras(NormalItem):
 
     def update(self):
         pass
+
+
+class Conjured(NormalItem):
+
+    def update(self):
+        decrement_amount = 4 if self.get_sell_in() <= 0 else 2
+        self.decrement_quality_by(decrement_amount)
+        self.decrement_sell_in_by_one()
