@@ -133,7 +133,7 @@ def test_concert_sell_in_deprecates():
 
 
 def test_gilded_rose_update_quality_reduces_conjured_quality_by_2_when_sell_in_0_or_greater():
-    items = [Conjured("Conjured item", 10, 10)]
+    items = [Item("Conjured item", 10, 10)]
     gilded_rose = GildedRose(items)
     gilded_rose.update_quality()
     assert items[0].quality == 8
